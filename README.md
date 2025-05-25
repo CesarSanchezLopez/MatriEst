@@ -24,7 +24,7 @@
 ### 1. Clona el repositorio
 
 	git clone https://github.com/CesarSanchezLopez/MatriEst.git
-	cd ManageVM
+
 
 ### 2.  Configura la base de datos
 
