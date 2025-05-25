@@ -21,7 +21,19 @@ namespace MatriEst.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var estudiantes = await _estudianteRepository.GetAllAsync();
-            return Ok(estudiantes);
+
+            var result = estudiantes.Select(e => new
+            {
+                Id = e.Id,
+                Nombre = e.Nombre,
+                Materias = e.Materias.Select(em => new
+                {
+                    Nombre = em.Materia.Nombre,
+                    Profesor = em.Materia.Profesor?.Nombre ?? "Sin asignar"
+                })
+            });
+
+            return Ok(result);
         }
 
         [HttpGet("{id}")]

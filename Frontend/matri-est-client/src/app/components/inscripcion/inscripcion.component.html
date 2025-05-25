@@ -1,0 +1,39 @@
+<hr />
+<h2>Formulario de inscripción</h2>
+
+<div *ngIf="mensaje" class="success">{{ mensaje }}</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<ul>
+  <li *ngFor="let materia of materias">
+    <label>
+      <input type="checkbox"
+             [checked]="seleccionadas.includes(materia)"
+             (change)="toggleSeleccion(materia)">
+      {{ materia.nombre }} ({{ materia.profesorNombre }})
+    </label>
+  </li>
+</ul>
+
+<button (click)="enviar()">Inscribirse</button>
+
+<hr />
+
+<h3>Materias ya inscritas</h3>
+<ul>
+  <li *ngFor="let m of materiasInscritas">
+    {{ m.nombre }} - {{ m.profesorNombre }}
+  </li>
+</ul>
+
+<hr />
+
+<h3>Compañeros</h3>
+<li *ngFor="let materia of materiasInscritas">
+  <strong>{{ materia.nombre }}</strong>
+  <button (click)="verCompaneros(materia.id)">Ver compañeros</button>
+
+  <ul *ngIf="companerosPorMateria[materia.id]">
+    <li *ngFor="let c of companerosPorMateria[materia.id]">{{ c }}</li>
+  </ul>
+</li>

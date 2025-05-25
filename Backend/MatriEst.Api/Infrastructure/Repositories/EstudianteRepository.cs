@@ -19,7 +19,8 @@ namespace MatriEst.Api.Infrastructure.Repositories
             return await _context.Estudiantes
                 .Include(e => e.Materias)
                 .ThenInclude(em => em.Materia)
-                .ToListAsync();
+                .ThenInclude(m => m.Profesor)
+        .ToListAsync();
         }
 
         public async Task<Estudiante?> GetByIdAsync(int id)

@@ -1,0 +1,24 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">📚 MatriEst</div>
+
+    <button class="menu-toggle" (click)="toggleMenu()">
+      <span [class.active]="menuOpen"></span>
+      <span [class.active]="menuOpen"></span>
+      <span [class.active]="menuOpen"></span>
+    </button>
+
+    <ul [class.open]="menuOpen" class="nav-links">
+       <li><a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Login</a></li>
+      <li><a routerLink="/inscripcion" routerLinkActive="active" (click)="closeMenu()">Inscripción</a></li>
+      <li><a routerLink="/materias" routerLinkActive="active" (click)="closeMenu()">Materias</a></li>
+      <li><a routerLink="/estudiantes" routerLinkActive="active" (click)="closeMenu()">Estudiantes</a></li>
+
+      <li class="usuario" *ngIf="estudianteNombre">
+        <span>👤 {{ estudianteNombre }}</span>
+        <button (click)="logout()">Cerrar sesión</button>
+      </li>
+    </ul>
+  </div>
+</nav>
+<router-outlet></router-outlet>

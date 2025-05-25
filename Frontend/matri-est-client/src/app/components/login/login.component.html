@@ -1,0 +1,14 @@
+<div class="login-container">
+  <h2>Selecciona tu usuario</h2>
+
+  <select [(ngModel)]="estudianteId" name="estudiante">
+    <option [ngValue]="null" disabled>-- Selecciona estudiante --</option>
+    <option *ngFor="let est of estudiantes" [ngValue]="est.id">
+      {{ est.nombre }}
+    </option>
+  </select>
+
+  <button (click)="entrar()">Entrar</button>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+</div>

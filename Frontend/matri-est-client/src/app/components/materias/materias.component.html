@@ -1,0 +1,9 @@
+<h2>Materias disponibles</h2>
+
+<div *ngIf="loading">Cargando materias...</div>
+
+<ul *ngIf="!loading">
+  <li *ngFor="let materia of materias">
+    {{ materia.nombre }} - Profesor: {{ materia.profesorNombre }}
+  </li>
+</ul>

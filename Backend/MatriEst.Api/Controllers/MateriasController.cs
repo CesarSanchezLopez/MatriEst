@@ -55,10 +55,11 @@ namespace MatriEst.Api.Controllers
         public async Task<IActionResult> Inscribir(int estudianteId, [FromBody] List<int> materiaIds)
         {
             var (success, message) = await _inscripcionService.InscribirEstudianteAsync(estudianteId, materiaIds);
-            if (!success)
-                return BadRequest(message);
 
-            return Ok(message);
+            if (!success)
+                return BadRequest(new { message });
+
+            return Ok(new { message });
         }
 
         // GET: api/materias/5/compañeros
