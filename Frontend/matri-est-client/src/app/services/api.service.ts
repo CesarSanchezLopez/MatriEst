@@ -32,4 +32,12 @@ export class ApiService {
   getEstudiantes(): Observable<Estudiante[]> {
     return this.http.get<Estudiante[]>(`${this.apiUrl}/estudiantes`);
   }
+
+  eliminarInscripcion(estudianteId: number, materiaId: number) {
+  return this.http.delete<string>(
+    `${this.apiUrl}/estudiantes/${estudianteId}/materia/${materiaId}`,
+    { responseType: 'text' as 'json' }
+  );
+}
+
 }

@@ -28,6 +28,7 @@ namespace MatriEst.Api.Infrastructure.Repositories
             return await _context.Estudiantes
                 .Include(e => e.Materias)
                 .ThenInclude(em => em.Materia)
+                .ThenInclude(m => m.Profesor)
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
@@ -52,5 +53,25 @@ namespace MatriEst.Api.Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task EliminarInscripcion(int estudianteId, int materiaId)
+        {
+            var estudiante = await _context.Estudiantes
+                .Include(e => e.Materias)
+                .FirstOrDefaultAsync(e => e.Id == estudianteId);
+
+            //if (estudiante == null)
+            //    return false;
+
+            var inscripcion = estudiante.Materias.FirstOrDefault(em => em.MateriaId == materiaId);
+            //if (inscripcion == null)
+            //    return false;
+
+            estudiante.Materias.Remove(inscripcion);
+            await _context.SaveChangesAsync();
+
+           // return true;
+        }
+
     }
 }

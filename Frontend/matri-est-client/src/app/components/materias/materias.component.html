@@ -1,9 +1,18 @@
-<h2>Materias disponibles</h2>
+<div class="container">
+  <h2>📚 Materias Disponibles</h2>
 
-<div *ngIf="loading">Cargando materias...</div>
+  <div *ngIf="loading" class="loading-msg">
+    ⏳ Cargando materias...
+  </div>
 
-<ul *ngIf="!loading">
-  <li *ngFor="let materia of materias">
-    {{ materia.nombre }} - Profesor: {{ materia.profesorNombre }}
-  </li>
-</ul>
+  <div *ngIf="!loading && materias.length > 0">
+    <div *ngFor="let materia of materias" class="materia-card">
+      <h3>{{ materia.nombre }}</h3>
+      <p>👨‍🏫 Profesor: <strong>{{ materia.profesorNombre }}</strong></p>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && materias.length === 0" class="alert info">
+    No hay materias registradas en el sistema.
+  </div>
+</div>

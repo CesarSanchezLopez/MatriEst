@@ -39,7 +39,7 @@ export class InscripcionComponent implements OnInit {
   cargarMateriasInscritas(): void {
     this.apiService.getEstudiante(this.estudianteId).subscribe({
       next: (data) => {
-        this.materiasInscritas = data.materias;
+      this.materiasInscritas = [...data.materias];
       },
       error: (err) => console.error('Error al cargar materias del estudiante', err)
     });
@@ -79,12 +79,12 @@ export class InscripcionComponent implements OnInit {
         this.mensaje = '¡Inscripción exitosa!';
         this.error = '';
 
-        // 🔁 Limpieza y recarga
+       
         this.seleccionadas = [];
         this.companerosPorMateria = {};
         this.cargarMateriasInscritas();
 
-        // Opcional: scroll arriba
+       
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       error: (err) => {
@@ -101,4 +101,29 @@ export class InscripcionComponent implements OnInit {
       error: (err) => console.error('Error al cargar compañeros:', err)
     });
   }
+  eliminarInscripcion(materiaId: number): void {
+ // if (!confirm('¿Estás seguro de eliminar esta inscripción?')) return;
+
+  this.apiService.eliminarInscripcion(this.estudianteId, materiaId).subscribe({
+  next: (mensaje) => {
+    this.mensaje = mensaje; // Recibe el texto del backend
+    this.error = '';
+
+    // Limpiar compañeros de esa materia (si se estaban mostrando)
+    delete this.companerosPorMateria[materiaId];
+
+    // Recargar materias inscritas actualizadas
+    this.cargarMateriasInscritas();
+
+    // Refrescar el componente sin recargar toda la página
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/inscripcion']);
+    });
+  },
+  error: (err) => {
+    this.error = 'Error al eliminar inscripción: ' + (err.error?.message || err.message || 'Error desconocido');
+  }
+});
+
+}
 }

@@ -1,0 +1,47 @@
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f8fafc;
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2b7bff;
+}
+
+.loading-msg {
+  text-align: center;
+  color: #555;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.materia-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #1976d2;
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.materia-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.materia-card h3 {
+  margin: 0 0 0.5rem;
+  color: #333;
+}
+
+.alert.info {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+}

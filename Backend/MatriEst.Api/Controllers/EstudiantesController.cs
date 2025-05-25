@@ -22,20 +22,20 @@ namespace MatriEst.Api.Controllers
         {
             var estudiantes = await _estudianteRepository.GetAllAsync();
 
-            var result = estudiantes.Select(e => new
+            var result = estudiantes.Select(e => new EstudianteDto
             {
                 Id = e.Id,
                 Nombre = e.Nombre,
-                Materias = e.Materias.Select(em => new
+                Materias = e.Materias.Select(em => new MateriaDto
                 {
+                    Id = em.Materia.Id,
                     Nombre = em.Materia.Nombre,
-                    Profesor = em.Materia.Profesor?.Nombre ?? "Sin asignar"
-                })
+                    ProfesorNombre = em.Materia.Profesor?.Nombre ?? "Sin asignar"
+                }).ToList()
             });
 
             return Ok(result);
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -80,6 +80,17 @@ namespace MatriEst.Api.Controllers
         {
             await _estudianteRepository.DeleteAsync(id);
             return NoContent();
+        }
+
+        [HttpDelete("{estudianteId}/materia/{materiaId}")]
+        public async Task<IActionResult> EliminarInscripcion(int estudianteId, int materiaId)
+        {
+            await _estudianteRepository.EliminarInscripcion(estudianteId, materiaId);
+
+            //if (!exito)
+            //    return NotFound("No se encontró la inscripción.");
+
+            return Ok("Inscripción eliminada correctamente.");
         }
     }
 }

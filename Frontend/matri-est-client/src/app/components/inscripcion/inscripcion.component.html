@@ -1,39 +1,47 @@
-<hr />
-<h2>Formulario de inscripción</h2>
+<div class="container">
+  <h2>📘 Formulario de inscripción</h2>
 
-<div *ngIf="mensaje" class="success">{{ mensaje }}</div>
-<div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="mensaje" class="alert success">{{ mensaje }}</div>
+  <div *ngIf="error" class="alert error">{{ error }}</div>
 
-<ul>
-  <li *ngFor="let materia of materias">
-    <label>
-      <input type="checkbox"
-             [checked]="seleccionadas.includes(materia)"
-             (change)="toggleSeleccion(materia)">
-      {{ materia.nombre }} ({{ materia.profesorNombre }})
-    </label>
-  </li>
-</ul>
+  <div class="card">
+    <h3>Materias disponibles</h3>
+    <ul class="materia-list">
+      <li *ngFor="let materia of materias">
+        <label>
+          <input type="checkbox"
+                 [checked]="seleccionadas.includes(materia)"
+                 (change)="toggleSeleccion(materia)">
+          <span class="materia-nombre">{{ materia.nombre }}</span>
+          <small class="profesor">({{ materia.profesorNombre }})</small>
+        </label>
+      </li>
+    </ul>
+    <button (click)="enviar()">✅ Inscribirse</button>
+  </div>
 
-<button (click)="enviar()">Inscribirse</button>
+  <div class="card">
+    <h3>📚 Materias ya inscritas</h3>
+    <ul>
+      <li *ngFor="let m of materiasInscritas">
+        {{ m.nombre }} - {{ m.profesorNombre }}
+          <button (click)="eliminarInscripcion(m.id)">❌ Eliminar</button>
+      </li>
+    </ul>
+  </div>
 
-<hr />
-
-<h3>Materias ya inscritas</h3>
-<ul>
-  <li *ngFor="let m of materiasInscritas">
-    {{ m.nombre }} - {{ m.profesorNombre }}
-  </li>
-</ul>
-
-<hr />
-
-<h3>Compañeros</h3>
-<li *ngFor="let materia of materiasInscritas">
-  <strong>{{ materia.nombre }}</strong>
-  <button (click)="verCompaneros(materia.id)">Ver compañeros</button>
-
-  <ul *ngIf="companerosPorMateria[materia.id]">
-    <li *ngFor="let c of companerosPorMateria[materia.id]">{{ c }}</li>
-  </ul>
-</li>
+  <div class="card">
+    <h3>👥 Compañeros de clase</h3>
+    <ul>
+      <li *ngFor="let materia of materiasInscritas">
+        <div class="materia-companeros">
+          <strong>{{ materia.nombre }}</strong>
+          <button (click)="verCompaneros(materia.id)">Ver compañeros</button>
+        </div>
+        <ul *ngIf="companerosPorMateria[materia.id]">
+          <li *ngFor="let c of companerosPorMateria[materia.id]">{{ c }}</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

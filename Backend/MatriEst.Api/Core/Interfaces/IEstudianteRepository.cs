@@ -9,5 +9,6 @@ namespace MatriEst.Api.Core.Interfaces
         Task AddAsync(Estudiante estudiante);
         Task UpdateAsync(Estudiante estudiante);
         Task DeleteAsync(int id);
+        Task EliminarInscripcion(int estudianteId, int materiaId);
     }
 }
